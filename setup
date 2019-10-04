@@ -8,7 +8,7 @@
 apt update && apt -y upgrade
 
 # Install basic requirements
-apt install dkms build-essential linux-headers-$(uname -r)
+apt install -y dkms build-essential linux-headers-$(uname -r)
 
 # Create
 mkdir -p /var/cache/swap/
