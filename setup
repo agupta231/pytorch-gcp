@@ -1,0 +1,24 @@
+#!/bin/bash
+
+## Setup script to update, install required headers, and set up swap
+##
+## Must be run as root!
+
+# Update
+apt update && apt -y upgrade
+
+# Install basic requirements
+apt install dkms build-essential linux-headers-$(uname -r)
+
+# Create
+mkdir -p /var/cache/swap/
+dd if=/dev/zero of=/var/cache/swap/myswap bs=1M count=4096
+chmod 0600 /var/cache/swap/myswap
+mkswap /var/cache/swap/myswap 
+swapon /var/cache/swap/myswap
+
+# Activate swap
+echo "/var/cache/swap/myswap    none    swap    sw    0   0" >> /etc/fstab
+
+# Offer a reminder to the user cause I don't want to deal with nvidia's website
+echo "Setup complete. Make sure to install CUDA from NVidia!"
